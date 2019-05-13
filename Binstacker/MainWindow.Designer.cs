@@ -38,6 +38,7 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -120,11 +121,22 @@
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(332, 35);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(175, 17);
+            this.checkBox1.TabIndex = 2;
+            this.checkBox1.Text = "add header to the following files";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 293);
+            this.ClientSize = new System.Drawing.Size(512, 302);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -135,6 +147,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -150,6 +163,7 @@
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
