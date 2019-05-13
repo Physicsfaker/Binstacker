@@ -18,56 +18,86 @@ namespace Binstacker
             InitializeComponent();
         }
 
-        private void OpenButton1_Click(object sender, EventArgs e)
+        private void AddButton_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.Cancel) return;
-            ProgDataClass.openFirstFilename = openFileDialog1.FileName;
-            label1.Text = ProgDataClass.openFirstFilename;
+            OpenFileDialog opnDlg = new OpenFileDialog
+            {
+                Multiselect = true,
+                Title = "Выберите файлы",
+                InitialDirectory = @"D:\BinImagTest\", //закомент
+                Filter = "Text files(*.bin)| *.bin"
+            };
+            if (opnDlg.ShowDialog() == DialogResult.Cancel) return;
+
+            listBox1.Items.AddRange(opnDlg.FileNames);
         }
 
-        private void OpenButton2_Click(object sender, EventArgs e)
+        private void buttonUp_Click(object sender, EventArgs e) //кнопка вверх
         {
-            if (openFileDialog2.ShowDialog() == DialogResult.Cancel) return;
-            ProgDataClass.openSecondFilename = openFileDialog2.FileName;
-            label2.Text = ProgDataClass.openSecondFilename;
+            if (listBox1.Items.Count == 0) return;
+            if (listBox1.SelectedIndex == -1) { listBox1.SelectedIndex = listBox1.Items.Count - 1; return; }
+            if (listBox1.SelectedIndex != 0)
+            {
+                string bufer = listBox1.SelectedItem.ToString();
+                listBox1.Items[listBox1.SelectedIndex] = listBox1.Items[listBox1.SelectedIndex - 1];
+                listBox1.Items[listBox1.SelectedIndex - 1] = bufer;
+                listBox1.SelectedIndex--;
+            }
+        }
+
+        private void buttonDown_Click(object sender, EventArgs e)   //кнопка вниз
+        {
+            if (listBox1.Items.Count == 0) return;
+            if (listBox1.SelectedIndex == -1) { listBox1.SelectedIndex = 0; return; }
+            if (listBox1.SelectedIndex != listBox1.Items.Count - 1)
+            {
+                string bufer = listBox1.SelectedItem.ToString();
+                listBox1.Items[listBox1.SelectedIndex] = listBox1.Items[listBox1.SelectedIndex + 1];
+                listBox1.Items[listBox1.SelectedIndex + 1] = bufer;
+                listBox1.SelectedIndex++;
+            }
+        }
+
+        private void removeButton_Click(object sender, EventArgs e) //кнопка удалить
+        {
+            if (listBox1.Items.Count == 0) return;
+            if (listBox1.SelectedIndex == -1) { listBox1.SelectedIndex = 0; return; }
+            listBox1.Items.RemoveAt(listBox1.SelectedIndex);
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            // if (saveFileDialog1.ShowDialog() == DialogResult.Cancel) return;
-            // ProgDataClass.saveFilename = saveFileDialog1.FileName;
             Gluing();
         }
 
         private void Gluing()
         {
-            string path = @"D:\BinImagTest\Test1.bin";
+            if (listBox1.Items.Count <= 1) { MessageBox.Show("At least 2 files for gluing"); return; }
 
-            using (BinaryWriter exportFile = new BinaryWriter(File.Open(path, FileMode.OpenOrCreate)))
+            SaveFileDialog savDlg = new SaveFileDialog
             {
-                using (BinaryReader reader1 = new BinaryReader(File.Open(@"D:\BinImagTest\ic1.bin", FileMode.Open), Encoding.ASCII))
+                Title = "new_file",
+                InitialDirectory = @"D:\BinImagTest\",  //нужен комент
+                Filter = "Text files(*.bin)| *.bin"
+            };
+
+            if (savDlg.ShowDialog() == DialogResult.Cancel) return;
+
+            using (BinaryWriter exportFile = new BinaryWriter(File.Open(savDlg.FileName, FileMode.OpenOrCreate)))
+            {
+
+                foreach (var listBoxItem in listBox1.Items)
                 {
-                    // пока не достигнут конец файла
-                    // считываем каждое значение из файла
-                    while (reader1.PeekChar() > -1)
+                    using (BinaryReader reader = new BinaryReader(File.Open(listBoxItem.ToString(), FileMode.Open), Encoding.ASCII))
                     {
-                        exportFile.Write(reader1.ReadByte());
+                        // пока не достигнут конец файла
+                        // считываем каждое значение из файла
+                        while (reader.PeekChar() > -1)
+                        {
+                            exportFile.Write(reader.ReadByte());
+                        }
                     }
                 }
-
-                using (BinaryReader reader2 = new BinaryReader(File.Open(@"D:\BinImagTest\ic2.bin", FileMode.Open), Encoding.ASCII))
-                {
-                    // пока не достигнут конец файла
-                    // считываем каждое значение из файла
-                    while (reader2.PeekChar() > -1)
-                    {
-                        exportFile.Write(reader2.ReadByte());
-                    }
-                }
-                
-
-                //// записываем в файл значение каждого поля структуры
-                //exportFile.Write(s.name);
             }
             MessageBox.Show("Complite!");
         }

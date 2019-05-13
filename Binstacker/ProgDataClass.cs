@@ -8,8 +8,6 @@ namespace Binstacker
 {
     public static class ProgDataClass
     {
-        public static string openFirstFilename;
-        public static string openSecondFilename;
-        public static string saveFilename;
+        public static string[] openFirstFilename;
     }
 }
