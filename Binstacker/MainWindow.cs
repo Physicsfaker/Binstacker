@@ -88,14 +88,17 @@ namespace Binstacker
 
                 foreach (var listBoxItem in listBox1.Items)
                 {
+                    int count = 0;
                     using (BinaryReader reader = new BinaryReader(File.Open(listBoxItem.ToString(), FileMode.Open), Encoding.ASCII))
                     {
+                        if (count > 0 && checkBox1.Checked) reader.ReadBytes(4);
                         // пока не достигнут конец файла
                         // считываем каждое значение из файла
                         while (reader.PeekChar() > -1)
                         {
                             exportFile.Write(reader.ReadByte());
                         }
+                        count++;
                     }
                 }
             }
