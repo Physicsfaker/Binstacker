@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.removeButton = new System.Windows.Forms.Button();
             this.OpenButton1 = new System.Windows.Forms.Button();
@@ -36,6 +37,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SaveButton = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,92 +49,74 @@
             this.groupBox1.Controls.Add(this.buttonDown);
             this.groupBox1.Controls.Add(this.listBox1);
             this.groupBox1.Controls.Add(this.checkBox1);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(453, 300);
-            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Input files";
             // 
             // removeButton
             // 
-            this.removeButton.Location = new System.Drawing.Point(413, 182);
+            resources.ApplyResources(this.removeButton, "removeButton");
             this.removeButton.Name = "removeButton";
-            this.removeButton.Size = new System.Drawing.Size(34, 24);
-            this.removeButton.TabIndex = 6;
-            this.removeButton.Text = "Del";
-            this.removeButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.removeButton.UseVisualStyleBackColor = true;
             this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
             // 
             // OpenButton1
             // 
-            this.OpenButton1.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.OpenButton1, "OpenButton1");
             this.OpenButton1.Name = "OpenButton1";
-            this.OpenButton1.Size = new System.Drawing.Size(75, 23);
-            this.OpenButton1.TabIndex = 1;
-            this.OpenButton1.Text = "Add files";
             this.OpenButton1.UseVisualStyleBackColor = true;
             this.OpenButton1.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // buttonUp
             // 
-            this.buttonUp.Location = new System.Drawing.Point(413, 124);
+            resources.ApplyResources(this.buttonUp, "buttonUp");
             this.buttonUp.Name = "buttonUp";
-            this.buttonUp.Size = new System.Drawing.Size(34, 23);
-            this.buttonUp.TabIndex = 4;
-            this.buttonUp.Text = "▲";
             this.buttonUp.UseVisualStyleBackColor = true;
             this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
             // 
             // buttonDown
             // 
-            this.buttonDown.Location = new System.Drawing.Point(413, 153);
+            resources.ApplyResources(this.buttonDown, "buttonDown");
             this.buttonDown.Name = "buttonDown";
-            this.buttonDown.Size = new System.Drawing.Size(34, 23);
-            this.buttonDown.TabIndex = 5;
-            this.buttonDown.Text = "▼";
             this.buttonDown.UseVisualStyleBackColor = true;
             this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(6, 56);
+            resources.ApplyResources(this.listBox1, "listBox1");
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(401, 225);
-            this.listBox1.TabIndex = 3;
             // 
             // checkBox1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(112, 23);
+            resources.ApplyResources(this.checkBox1, "checkBox1");
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(175, 17);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "add header to the following files";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(156, 328);
+            resources.ApplyResources(this.SaveButton, "SaveButton");
             this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(155, 43);
-            this.SaveButton.TabIndex = 1;
-            this.SaveButton.Text = "Merge files and save";
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
+            // progressBar1
+            // 
+            this.progressBar1.ForeColor = System.Drawing.Color.Coral;
+            resources.ApplyResources(this.progressBar1, "progressBar1");
+            this.progressBar1.Name = "progressBar1";
+            // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(476, 383);
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MainWindow";
-            this.Text = "BinStacker";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -148,6 +132,7 @@
         private System.Windows.Forms.Button buttonUp;
         private System.Windows.Forms.Button buttonDown;
         private System.Windows.Forms.Button removeButton;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 

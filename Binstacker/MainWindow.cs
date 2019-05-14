@@ -18,13 +18,14 @@ namespace Binstacker
             InitializeComponent();
         }
 
+        #region Buttons
         private void AddButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog opnDlg = new OpenFileDialog
             {
                 Multiselect = true,
                 Title = "Выберите файлы",
-                InitialDirectory = @"D:\BinImagTest\", //закомент
+                //InitialDirectory = @"D:\BinImagTest\", //закомент
                 Filter = "Text files(*.bin)| *.bin"
             };
             if (opnDlg.ShowDialog() == DialogResult.Cancel) return;
@@ -69,6 +70,7 @@ namespace Binstacker
         {
             Gluing();
         }
+        #endregion
 
         private void Gluing()
         {
@@ -77,36 +79,42 @@ namespace Binstacker
             SaveFileDialog savDlg = new SaveFileDialog
             {
                 Title = "new_file",
-                InitialDirectory = @"D:\BinImagTest\",  //нужен комент
+                //InitialDirectory = @"D:\BinImagTest\",  //нужен комент
                 Filter = "Text files(*.bin)| *.bin"
             };
-
             if (savDlg.ShowDialog() == DialogResult.Cancel) return;
+
+            SaveButton.Enabled = false;
+            progressBar1.Step = 100 / listBox1.Items.Count;
 
             using (BinaryWriter exportFile = new BinaryWriter(File.Open(savDlg.FileName, FileMode.OpenOrCreate)))
             {
-
+                int count = 0;
                 foreach (var listBoxItem in listBox1.Items)
-                {
-                    int count = 0;
+                {                  
                     using (BinaryReader reader = new BinaryReader(File.Open(listBoxItem.ToString(), FileMode.Open), Encoding.ASCII))
                     {
-                        if (count > 0 && checkBox1.Checked) reader.ReadBytes(4);
+                        if (count > 0 && checkBox1.Checked)
+                            reader.ReadBytes(8);
                         // пока не достигнут конец файла
                         // считываем каждое значение из файла
                         while (reader.PeekChar() > -1)
                         {
                             exportFile.Write(reader.ReadByte());
                         }
+                        progressBar1.PerformStep();
                         count++;
                     }
                 }
             }
+            progressBar1.Value = 100;
             MessageBox.Show("Complite!");
+            SaveButton.Enabled = true;
+            progressBar1.Value = 0;
         }
 
         #region Zametki
-        //4 байта это шапка
+        //8 байта это шапка бинарника
         #endregion
 
     }
